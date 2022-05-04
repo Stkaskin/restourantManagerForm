@@ -8,13 +8,13 @@ namespace restourantManagerForm.Models
 {
     public class Order
     {
-        int id;
-        int personId;
-        int productId;
-        int tableId;
-        Product product;
-        Person person;
-        Table table;
+        int id{ get; set; }
+        int personId{ get; set; }
+        int productId{ get; set; }
+        int tableId{ get; set; }
+        Product product{ get; set; }
+        Person person{ get; set; }
+        Table table{ get; set; }
 
         public Order()
         {

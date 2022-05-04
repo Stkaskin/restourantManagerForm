@@ -8,8 +8,8 @@ namespace restourantManagerForm.Models
 {
     public class Person
     {
-        int id;
-        string name;
+       public int id{ get; set; }
+         public string name{ get; set; }
         public Person(int id, string name)
         {
             this.id = id;

@@ -8,8 +8,8 @@ namespace restourantManagerForm.Models
 {
     public class Table
     {
-        int id;
-        string ad;
+        int id{ get; set; }
+        string ad{ get; set; }
         public Table() { }
         public Table(int id, string ad)
         {

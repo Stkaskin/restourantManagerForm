@@ -8,10 +8,10 @@ namespace restourantManagerForm.Models
 {
     public class Product
     {
-        int id;
-        string name;
-        int categoryId;
-        Category category;
+        int id{ get; set; }
+        string name{ get; set; }
+        int categoryId{ get; set; }
+        Category category{ get; set; }
         public Product()
         {
         }
