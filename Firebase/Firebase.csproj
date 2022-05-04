@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="My_Data\Firebase\cloudfire.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Folder Include="My_Data\Firebase\" />
   </ItemGroup>
 
 </Project>
