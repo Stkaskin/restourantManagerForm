@@ -1,7 +1,7 @@
 ﻿
 namespace restourantManagerForm.Views.Shared
 {
-    partial class Person
+    partial class OrderView
     {
         /// <summary>
         /// Required designer variable.
@@ -31,14 +31,13 @@ namespace restourantManagerForm.Views.Shared
         {
             this.SuspendLayout();
             // 
-            // Person
+            // Order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Person";
-            this.Text = "PersonAdd";
-            this.Load += new System.EventHandler(this.Person_Load);
+            this.Name = "Order";
+            this.Text = "Order";
             this.ResumeLayout(false);
 
         }

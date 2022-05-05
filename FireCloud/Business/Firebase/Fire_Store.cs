@@ -3,14 +3,14 @@ using System.IO;
 using System.Threading.Tasks;
 using Firebase.Auth;
 using Firebase.Storage;
-namespace CloudFireEng.Business.Firebase
+namespace FireCloud.Business.Firebase
 {
     public class Fire_Store
     {
         System.Threading.CancellationTokenSource cancellation;
         Firebase_Settings.Storage settings = new Firebase_Settings.Storage();
-    
-        public  void Firestorage_Delete(string file_name)
+
+        public void Firestorage_Delete(string file_name)
         {
             var task = Firestorage_Connection()
             .Child(settings.File_Child)//files folder
@@ -75,11 +75,8 @@ return await Firestorage_Add(path,"new_image_"+DateTime.Now);
 
         }
 
-        private FirebaseStorage Firestorage_Connection()
-        {
-            FirebaseStorage storage = Task.Run(() => Firestore_Options_Connection()).Result;
-            return storage;
-        }
+        private FirebaseStorage Firestorage_Connection()=>Task.Run(() => Firestore_Options_Connection()).Result;
+        
         private async Task<FirebaseStorage> Firestore_Options_Connection()
         {
             var authpo = new FirebaseAuthProvider(new FirebaseConfig(settings.ApiKey));

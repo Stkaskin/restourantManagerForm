@@ -25,14 +25,14 @@ namespace restourantManagerForm.Views.Shared
         PropertyInfo[] type;
         Button button = new Button();
         List<(PropertyInfo info, TextBox box)> items = new List<(PropertyInfo info, TextBox box)>();
-        public PanelAUD(object obj,int Operation)
+        public PanelAUD(object obj, int Operation)
         {
             InitializeComponent();
             operationCode = Operation;
             if (operationLoad() == 1)
                 LoadPageAddControlsProperty(obj);
         }
-        private int operationLoad() 
+        private int operationLoad()
         {
             //insert
             if (operationCode == 1)
@@ -75,24 +75,24 @@ namespace restourantManagerForm.Views.Shared
                 if (maxWidht < label.Width)
                     maxWidht = label.Width;
             }
-             x = startPositionX;
-             y = startPositionY;
+            x = startPositionX;
+            y = startPositionY;
             foreach (var item in type)
             {
                 TextBox box = new TextBox();
-              //  box.Text = item.Name;
+                //  box.Text = item.Name;
                 box.Name = item.Name + y;
                 var a = obj.GetType().GetProperty(item.Name).GetValue(obj);
-                box.Text = a!=null?a.ToString():"";
+                box.Text = a != null ? a.ToString() : "";
                 box.Height = heightText;
                 box.Width = widhtTextBox;
                 box.Location = new Point(x + maxWidht + extraSpaceLabelAndTextbox, y);
                 this.Controls.Add(box);
-                items.Add((item,box));
+                items.Add((item, box));
                 y += heightText;
             }
-            
-            button.Location = new Point((x*3)/2,(type.Length+1)*(heightText+5));
+
+            button.Location = new Point((x * 3) / 2, (type.Length + 1) * (heightText + 5));
             button.Height = heightText;
             button.Width = widhtTextBox;
             button.Click += Button_Click;
@@ -104,25 +104,23 @@ namespace restourantManagerForm.Views.Shared
             string emptyWarning = "";
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].box.Text.Length>0) {
-                    var s = objType.GetType();
+                if (items[i].box.Text.Length > 0)
                     obj.GetType().GetProperty(items[i].info.Name).SetValue(obj, Convert.ChangeType(items[i].box.Text, type[i].PropertyType));
-                }
-                else 
-                {
+
+                else
                     emptyWarning += items[i].info.Name + " !\n";
-                  
-                }
-            }
+
+
+             }
             if (emptyWarning.Length > 0)
                 MessageBox.Show("Boş yeri Doldurun  : \n" + emptyWarning);
-           /* else
-                FirebaseManager.Add();....*/
+            /* else
+                 FirebaseManager.Add();....*/
 
 
         }
 
-     
+
 
     }
 }

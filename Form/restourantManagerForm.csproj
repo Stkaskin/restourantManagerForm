@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManager\Firebase.cs" />
+    <Compile Include="FormManager\FormConnectionManager.cs" />
     <Compile Include="Manager\CategoryManager.cs" />
     <Compile Include="Manager\OrderManager.cs" />
     <Compile Include="Manager\PersonManager.cs" />
@@ -61,39 +62,51 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Shared\PanelAUD.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Views\Shared\PanelAUD.Designer.cs">
       <DependentUpon>PanelAUD.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Category.cs">
+    <Compile Include="Views\Shared\CategoryView.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Category.Designer.cs">
-      <DependentUpon>Category.cs</DependentUpon>
+    <Compile Include="Views\Shared\CategoryView.Designer.cs">
+      <DependentUpon>CategoryView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Order.cs">
+    <Compile Include="Views\Shared\OrderView.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Order.Designer.cs">
-      <DependentUpon>Order.cs</DependentUpon>
+    <Compile Include="Views\Shared\OrderView.Designer.cs">
+      <DependentUpon>OrderView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Person.cs">
+    <Compile Include="Views\Shared\PersonView.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Person.Designer.cs">
-      <DependentUpon>Person.cs</DependentUpon>
+    <Compile Include="Views\Shared\PersonView.Designer.cs">
+      <DependentUpon>PersonView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Product.cs">
+    <Compile Include="Views\Shared\ProductView.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Product.Designer.cs">
-      <DependentUpon>Product.cs</DependentUpon>
+    <Compile Include="Views\Shared\ProductView.Designer.cs">
+      <DependentUpon>ProductView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Table.cs">
+    <Compile Include="Views\Shared\TableView.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Shared\Table.Designer.cs">
-      <DependentUpon>Table.cs</DependentUpon>
+    <Compile Include="Views\Shared\TableView.Designer.cs">
+      <DependentUpon>TableView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -104,14 +117,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Shared\OrderView.resx">
+      <DependentUpon>OrderView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\PanelAUD.resx">
       <DependentUpon>PanelAUD.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Person.resx">
-      <DependentUpon>Person.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Shared\PersonView.resx">
+      <DependentUpon>PersonView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Table.resx">
-      <DependentUpon>Table.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Shared\TableView.resx">
+      <DependentUpon>TableView.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -129,6 +149,12 @@
   <ItemGroup>
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Person\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FireCloud\FireCloud.csproj">
+      <Project>{8c1004e3-acee-4c4a-a22d-be1e847298c7}</Project>
+      <Name>FireCloud</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 namespace restourantManagerForm.Views.Shared
 {
-    partial class Order
+    partial class CategoryView
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace restourantManagerForm.Views.Shared
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Order";
+            this.Text = "Category";
         }
 
         #endregion

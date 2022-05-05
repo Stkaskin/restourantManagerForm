@@ -17,7 +17,7 @@ namespace restourantManagerForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           Application.Run(new Person());
+           Application.Run(new PersonView());
         }
     }
 }

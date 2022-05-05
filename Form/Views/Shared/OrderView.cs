@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace restourantManagerForm.Views.Shared
 {
-    public partial class Order : Form
+    public partial class OrderView : Form
     {
-        public Order()
+        public OrderView()
         {
             InitializeComponent();
         }

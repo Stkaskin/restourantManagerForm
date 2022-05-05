@@ -1,7 +1,7 @@
 ﻿
 namespace restourantManagerForm.Views.Shared
 {
-    partial class Table
+    partial class TableView
     {
         /// <summary>
         /// Required designer variable.
