@@ -1,4 +1,5 @@
-﻿using System;
+﻿using restourantManagerForm.DataManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,8 @@ namespace restourantManagerForm.Views.Shared
     public partial class PanelAUD : Form
     {
         Type objType;
+        string imageProperty;
+        bool Isimage = false;
         int operationCode = -1;
         object obj;
         int startPositionX = 40;
@@ -27,11 +30,23 @@ namespace restourantManagerForm.Views.Shared
         List<(PropertyInfo info, TextBox box)> items = new List<(PropertyInfo info, TextBox box)>();
         public PanelAUD(object obj, int Operation)
         {
-            InitializeComponent();
             operationCode = Operation;
+            PanelAUDStart();
+        }
+        public PanelAUD(object obj, int Operation, string imageProperty)
+        {
+            this.imageProperty = imageProperty;
+            Isimage = true;
+            operationCode = Operation;
+            PanelAUDStart();
+        }
+        void PanelAUDStart()
+        {
+            InitializeComponent();
             if (operationLoad() == 1)
                 LoadPageAddControlsProperty(obj);
         }
+
         private int operationLoad()
         {
             //insert
@@ -111,13 +126,28 @@ namespace restourantManagerForm.Views.Shared
                     emptyWarning += items[i].info.Name + " !\n";
 
 
-             }
+            }
             if (emptyWarning.Length > 0)
                 MessageBox.Show("Boş yeri Doldurun  : \n" + emptyWarning);
-            /* else
-                 FirebaseManager.Add();....*/
+            else
+                OperationStart(obj, operationCode);
 
 
+        }
+        private void OperationStart(object obj, int code)
+        {
+            if (code == 1)
+            {
+                new FirebaseManger.Cloud().Add(obj);
+            }
+            else if (code == 2)
+            {
+                new FirebaseManger.Cloud().Update(obj);
+            }
+            else if (code == 3)
+            {
+                new FirebaseManger.Cloud().Delete(obj);
+            }
         }
 
 

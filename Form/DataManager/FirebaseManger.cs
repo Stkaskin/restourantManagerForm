@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace restourantManagerForm.DataManager
 {
-    public class Firebase
+    public class FirebaseManger
     {
         public class Cloud
         {

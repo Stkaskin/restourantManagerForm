@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataManager\Firebase.cs" />
+    <Compile Include="DataManager\FirebaseManger.cs" />
     <Compile Include="FormManager\FormConnectionManager.cs" />
     <Compile Include="Manager\CategoryManager.cs" />
     <Compile Include="Manager\OrderManager.cs" />
