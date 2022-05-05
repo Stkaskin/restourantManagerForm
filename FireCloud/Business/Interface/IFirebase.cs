@@ -1,4 +1,4 @@
-﻿namespace CloudFireEng.Business.Interface
+﻿namespace FireCloud.Business.Interface
 {
     interface IFirebase
 

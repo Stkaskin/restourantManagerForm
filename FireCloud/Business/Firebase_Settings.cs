@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace CloudFireEng.Business
+namespace FireCloud.Business
 {
   public  class Firebase_Settings
     {

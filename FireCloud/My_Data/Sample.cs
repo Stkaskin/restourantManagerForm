@@ -1,7 +1,7 @@
-﻿using CloudFireEng.Business.Interface;
+﻿using FireCloud.Business.Interface;
 using Google.Cloud.Firestore;
 
-namespace CloudFireEng.My_Data
+namespace FireCloud.My_Data
 {
 
     [FirestoreData]
