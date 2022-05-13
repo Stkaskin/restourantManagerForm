@@ -8,8 +8,9 @@ namespace FireCloud.Business
       public  class Firebase
         {
 
-            public string File_Location = AppDomain.CurrentDomain.BaseDirectory + @"cloudfire.json";
-            public string Firebase_Name = "x-xx-x";
+            //public string File_Location = AppDomain.CurrentDomain.BaseDirectory + @"cloudfire.json";
+            public string File_Location = @"C:\Users\Askin\source\repos\RestourantManager\restourantManagerForm\FireCloud\My_Data\Firebase\cloudfire.json";
+            public string Firebase_Name = "restourantmanager-89b1e";
             //Default
             public string EnviromentValue = "GOOGLE_APPLICATION_CREDENTIALS";
         }

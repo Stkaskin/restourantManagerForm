@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FireCloud.Business.Interface;
+using Google.Cloud.Firestore;
+using restourantManagerForm.ModelManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,39 +9,30 @@ using System.Threading.Tasks;
 
 namespace restourantManagerForm.Models
 {
-    public class Category
+    
+    [FirestoreData]
+    public class Category: IFirebase
     {
-        int id{ get; set; }
-        string name{ get; set; }
 
+        string IFirebase.table_names => "Category";
+        string IFirebase.table_Id { get => this.id; set { this.id = value; } }
+        [FirestoreDocumentId]
+        public string id { get; set; }
+        [FirestoreProperty]
+        public string name { get; set; }
+
+
+        public  CategoryManager manager = new CategoryManager();
         public Category()
         {
         }
 
-        public Category(int id, string name)
+        public Category(string id,string name)
         {
-            this.id = id;
+            this.id = id.ToString();
             this.name = name;
         }
 
-        public int getId()
-        {
-            return id;
-        }
 
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public void setName(string name)
-        {
-            this.name = name;
-        }
     }
 }

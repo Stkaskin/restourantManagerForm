@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FireCloud.Business.Interface;
+using Google.Cloud.Firestore;
+using restourantManagerForm.ModelManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,100 +9,44 @@ using System.Threading.Tasks;
 
 namespace restourantManagerForm.Models
 {
-    public class Order
+    [FirestoreData]
+
+    public class Order : IFirebase
     {
-        int id{ get; set; }
-        int personId{ get; set; }
-        int productId{ get; set; }
-        int tableId{ get; set; }
-        Product product{ get; set; }
-        Person person{ get; set; }
-        Table table{ get; set; }
+        string IFirebase.table_names => "Order";
+        string IFirebase.table_Id { get => this.id; set { this.id = value; } }
+        [FirestoreDocumentId]
+        public string id { get; set; }
+        [FirestoreProperty]
+        public string waiterId { get; set; }
+        [FirestoreProperty]
+        public string cheffId { get; set; }
+        [FirestoreProperty]
+        public string productId { get; set; }
+        [FirestoreProperty]
+        public string tableId { get; set; }
+   
+        public Product product { get; set; }
+        public Person waiter{ get; set; }
+        public Person cheff{ get; set; }
+        public Table table { get; set; }
+        public OrderManager manager = new OrderManager();
 
         public Order()
         {
         }
 
-        public Order(int id, int personId, int productId, int tableId, Product product, Person person, Table table)
+        public Order(string id,string personId, string productId, string tableId, Product product, Person person, Table table)
         {
             this.id = id;
-            this.personId = personId;
+            //this.personId = personId;
             this.productId = productId;
             this.tableId = tableId;
             this.product = product;
-            this.person = person;
+           // this.person = person;
             this.table = table;
         }
 
-        public int getId()
-        {
-            return id;
-        }
 
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public int getPersonId()
-        {
-            return personId;
-        }
-
-        public void setPersonId(int personId)
-        {
-            this.personId = personId;
-        }
-
-        public int getProductId()
-        {
-            return productId;
-        }
-
-        public void setProductId(int productId)
-        {
-            this.productId = productId;
-        }
-
-        public int getTableId()
-        {
-
-            return tableId;
-        }
-
-        public void setTableId(int tableId)
-        {
-            this.tableId = tableId;
-        }
-
-        public Product getProduct()
-        {
-            return product;
-        }
-
-        public void setProduct(Product product)
-        {
-            this.product = product;
-        }
-
-        public Person getPerson()
-        {
-            return person;
-        }
-
-        public void setPerson(Person person)
-        {
-            this.person = person;
-        }
-
-        public Table getTable()
-        {
-            return table;
-        }
-
-        public void setTable(Table table)
-        {
-            this.table = table;
-        }
     }
-    }
+}

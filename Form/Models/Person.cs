@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FireCloud.Business.Interface;
+using  Google.Cloud.Firestore;
+using restourantManagerForm.ModelManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +9,23 @@ using System.Threading.Tasks;
 
 namespace restourantManagerForm.Models
 {
-    public class Person
+    [FirestoreData]
+   
+    public class Person:IFirebase
     {
-       public int id{ get; set; }
-         public string name{ get; set; }
-        public Person(int id, string name)
+        string IFirebase.table_names => "Person";
+        string IFirebase.table_Id { get => this.id; set { this.id = value; } }
+        [FirestoreDocumentId]
+        public string id { get; set; }
+        [FirestoreProperty]
+        public string name { get; set; }
+        [FirestoreProperty]
+        public string type{ get; set; }
+        [FirestoreProperty]
+        public bool active { get; set; }
+        public PersonManager manager = new PersonManager();
+
+        public Person(string id,string name)
         {
             this.id = id;
             this.name = name;
@@ -19,25 +34,9 @@ namespace restourantManagerForm.Models
         public Person()
         {
         }
-        public int getId()
-        {
-            return id;
-        }
+        
+        
 
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public void setName(string name)
-        {
-            this.name = name;
-        }
 
 
     }

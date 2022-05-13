@@ -24,7 +24,7 @@ namespace restourantManagerForm.Views.Shared
         int heightText = 25;
         int widhtTextBox = 120;
         int extraSpaceLabelAndTextbox = 50;
-        string buttonText = "";
+       
         PropertyInfo[] type;
         Button button = new Button();
         List<(PropertyInfo info, TextBox box)> items = new List<(PropertyInfo info, TextBox box)>();
@@ -37,9 +37,11 @@ namespace restourantManagerForm.Views.Shared
         {
             this.imageProperty = imageProperty;
             Isimage = true;
+            if (Isimage) ;
             operationCode = Operation;
             PanelAUDStart();
         }
+      
         void PanelAUDStart()
         {
             InitializeComponent();
@@ -66,7 +68,8 @@ namespace restourantManagerForm.Views.Shared
 
         private void AddPanel_Load(object sender, EventArgs e)
         {
-
+         
+            
         }
         public void LoadPageAddControlsProperty(object obj)
         {

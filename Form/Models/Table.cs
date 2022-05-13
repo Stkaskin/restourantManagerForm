@@ -1,39 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FireCloud.Business.Interface;
+using Google.Cloud.Firestore;
+using restourantManagerForm.ModelManager;
 
 namespace restourantManagerForm.Models
 {
-    public class Table
+    [FirestoreData]
+
+    public class Table:IFirebase
     {
-        int id{ get; set; }
-        string ad{ get; set; }
+        string IFirebase.table_names => "Table";
+        string IFirebase.table_Id { get => this.id; set { this.id = value; } }
+        [FirestoreDocumentId]
+        public string id { get; set; }
+        [FirestoreProperty]
+        public string name { get; set; }
+        public TableManager manager = new TableManager();
         public Table() { }
-        public Table(int id, string ad)
+        public Table(string id,string name)
         {
             this.id = id;
-            this.ad = ad;
-        }
-        public int getId()
-        {
-            return id;
+            this.name = name;
         }
 
-        public void setId(int id)
-        {
-            this.id = id;
-        }
-
-        public string getAd()
-        {
-            return ad;
-        }
-
-        public void setAd(string ad)
-        {
-            this.ad = ad;
-        }
     }
 }

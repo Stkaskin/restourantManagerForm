@@ -8,6 +8,12 @@ namespace FireCloud.Business.Operation
 {
     public class Data_Converter
     {
+        public  Dictionary<string, TValue> ToDictionary<TValue>(object obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, TValue>>(json);
+            return dictionary;
+        }
         public object FRealTime_Converter<T>(string a)
         {
 

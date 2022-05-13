@@ -1,8 +1,8 @@
-﻿using Google.Cloud.Firestore;
+﻿using FireCloud.Business.Operation;
+using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 using System ;
 using System.Collections.Generic;
-
 
 namespace FireCloud.Business.Firebase
 {
@@ -13,9 +13,11 @@ namespace FireCloud.Business.Firebase
         {
 
             Firebase_Settings.Firebase settings = new Firebase_Settings.Firebase();
-            string path = settings.File_Location; 
+            string path = settings.File_Location;
+       
+            
             Environment.SetEnvironmentVariable(settings.EnviromentValue, path);
-            return FirestoreDb.Create(settings.Firebase_Name);
+            return FirestoreDb.CreateAsync(settings.Firebase_Name).Result;
         }
         
         public QuerySnapshot Selection(string collection, string docCol, string docSearch)
@@ -25,7 +27,6 @@ namespace FireCloud.Business.Firebase
             if (docCol == "" || docSearch == "") { Qref = database.Collection(collection);                
             }
             else { Qref = database.Collection(collection).WhereEqualTo(docCol, docSearch); }
-
 
             return Qref.GetSnapshotAsync().Result;
           
@@ -50,18 +51,13 @@ namespace FireCloud.Business.Firebase
                 return -1;
             }
         }
-        public static Dictionary<string, TValue> ToDictionary<TValue>(object obj)
-        {
-            var json = JsonConvert.SerializeObject(obj);
-            var dictionary = JsonConvert.DeserializeObject<Dictionary<string, TValue>>(json);
-            return dictionary;
-        }
+   
         public int  Update(string table_name, string table_row_id, object pairsget)
         {
             database = Connection();
             DocumentReference docref = database.Collection(table_name).Document(table_row_id);
             DocumentSnapshot snap =  docref.GetSnapshotAsync().Result;
-            var dictionary = ToDictionary<object>(pairsget);
+            var dictionary =new Data_Converter().ToDictionary<object>(pairsget);
             
             if (snap.Exists)
             {

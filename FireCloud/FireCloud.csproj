@@ -88,13 +88,16 @@
       <HintPath>..\Form\packages\Google.Protobuf.3.20.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Auth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
-      <HintPath>..\Form\packages\Grpc.Auth.2.45.0\lib\net45\Grpc.Auth.dll</HintPath>
+      <HintPath>..\Form\packages\Grpc.Auth.2.46.1\lib\net45\Grpc.Auth.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Grpc.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
-      <HintPath>..\Form\packages\Grpc.Core.2.45.0\lib\net45\Grpc.Core.dll</HintPath>
+      <HintPath>..\Form\packages\Grpc.Core.2.46.1\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Grpc.Core.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
-      <HintPath>..\Form\packages\Grpc.Core.Api.2.45.0\lib\net45\Grpc.Core.Api.dll</HintPath>
+      <HintPath>..\Form\packages\Grpc.Core.Api.2.46.1\lib\net45\Grpc.Core.Api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="LiteDB, Version=5.0.11.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\Form\packages\LiteDB.5.0.11\lib\net45\LiteDB.dll</HintPath>
@@ -299,7 +302,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\Form\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Form\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\Form\packages\Grpc.Core.2.45.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Form\packages\Grpc.Core.2.45.0\build\net45\Grpc.Core.targets'))" />
+    <Error Condition="!Exists('..\Form\packages\Grpc.Core.2.46.1\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Form\packages\Grpc.Core.2.46.1\build\net45\Grpc.Core.targets'))" />
   </Target>
-  <Import Project="..\Form\packages\Grpc.Core.2.45.0\build\net45\Grpc.Core.targets" Condition="Exists('..\Form\packages\Grpc.Core.2.45.0\build\net45\Grpc.Core.targets')" />
+  <Import Project="..\Form\packages\Grpc.Core.2.46.1\build\net45\Grpc.Core.targets" Condition="Exists('..\Form\packages\Grpc.Core.2.46.1\build\net45\Grpc.Core.targets')" />
 </Project>
