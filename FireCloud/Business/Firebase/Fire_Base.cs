@@ -31,10 +31,6 @@ namespace FireCloud.Business.Firebase
             return Qref.GetSnapshotAsync().Result;
           
         }
-  
-  
-        
-    
         public int Delete(string table_name, string table_row_id)
         {
             database = Connection();

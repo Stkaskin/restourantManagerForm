@@ -56,18 +56,17 @@ namespace restourantManagerForm.Views.Shared
         #region ButtonEvents
         private void AddClick(object sender, EventArgs e)
         {
-            FirebaseManger.Cloud manager = new FirebaseManger.Cloud();
-            Category category = new Category();
-            new Firebase_Save().Add(new Category {name="123" });
-            new Firebase_Save().Add(new Order {productId="23",tableId="1",waiterId="23" });
-            new Firebase_Save().Add(new Person { name="23"});
-            new Firebase_Save().Add(new Product { categoryId="231",name="231"});
-            new Firebase_Save().Add(new Table { });
-           
-          //  category.id = "2";
-            category.name = "23";
-            manager.Add(category);
-       //     manager.Selection(new Category());
+            foreach (var item in getListModels())
+            {
+                var t = item.GetType().FullName;
+                var t1 = item.GetType().Name;
+                if (t1.ToString()== comboBox.SelectedItem.ToString())
+                {
+                    new PanelAUD(item, 1).ShowDialog();
+                    
+                    break;
+                }
+            }
 
         }
         #endregion

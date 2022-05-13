@@ -27,9 +27,10 @@ namespace restourantManagerForm.Views.Shared
        
         PropertyInfo[] type;
         Button button = new Button();
-        List<(PropertyInfo info, TextBox box)> items = new List<(PropertyInfo info, TextBox box)>();
+        List<(PropertyInfo info, object box)> items = new List<(PropertyInfo info, object box)>();
         public PanelAUD(object obj, int Operation)
         {
+            this.obj = obj;
             operationCode = Operation;
             PanelAUDStart();
         }
@@ -96,18 +97,14 @@ namespace restourantManagerForm.Views.Shared
             x = startPositionX;
             y = startPositionY;
             foreach (var item in type)
-            {
-                TextBox box = new TextBox();
-                //  box.Text = item.Name;
-                box.Name = item.Name + y;
-                var a = obj.GetType().GetProperty(item.Name).GetValue(obj);
-                box.Text = a != null ? a.ToString() : "";
-                box.Height = heightText;
-                box.Width = widhtTextBox;
-                box.Location = new Point(x + maxWidht + extraSpaceLabelAndTextbox, y);
-                this.Controls.Add(box);
-                items.Add((item, box));
-                y += heightText;
+            { var propName = item.PropertyType.Name;
+                if (propName=="String")
+                addTextBox(item,ref y,ref x,ref maxWidht);
+                else if (propName== "Boolean") 
+                {
+                    addCheckBox(item, ref y, ref x, ref maxWidht);
+                }
+         
             }
 
             button.Location = new Point((x * 3) / 2, (type.Length + 1) * (heightText + 5));
@@ -116,18 +113,60 @@ namespace restourantManagerForm.Views.Shared
             button.Click += Button_Click;
             this.Controls.Add(button);
         }
-
+        private void addCheckBox(PropertyInfo item, ref int ex, ref int x, ref int maxWidht)
+        {
+            CheckBox box = new CheckBox();
+            //  box.Text = item.Name;
+            box.Name = item.Name + ex;
+            var a = obj.GetType().GetProperty(item.Name).GetValue(obj);
+            box.Checked = (bool)item.GetValue(obj);
+            box.Height = heightText;
+            box.Width = widhtTextBox;
+            box.Location = new Point(x + maxWidht + extraSpaceLabelAndTextbox, ex);
+            this.Controls.Add(box);
+            items.Add((item, box));
+            ex += heightText;
+        }
+        private void addTextBox( PropertyInfo item,ref int ex,ref int x,ref int maxWidht)
+        {
+            TextBox box = new TextBox();
+            //  box.Text = item.Name;
+            box.Name = item.Name + ex;
+            var a = obj.GetType().GetProperty(item.Name).GetValue(obj);
+            if (item.Name.ToLower() == "id" || item.Name.ToLower() == "ıd")
+            {
+                box.Enabled = false;
+                a = a == null ? "Otomatik" : a;
+            }
+           
+            box.Text = a != null ? a.ToString() : "";
+            box.Height = heightText;
+            box.Width = widhtTextBox;
+            box.Location = new Point(x + maxWidht + extraSpaceLabelAndTextbox, ex);
+            this.Controls.Add(box);
+            items.Add((item, box));
+            ex += heightText;
+        }
         private void Button_Click(object sender, EventArgs e)
         {
             string emptyWarning = "";
             for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].box.Text.Length > 0)
-                    obj.GetType().GetProperty(items[i].info.Name).SetValue(obj, Convert.ChangeType(items[i].box.Text, type[i].PropertyType));
+            { 
+                var obj2 = items[i].box.GetType();
+                if (obj2.Name == "TextBox")
+                {
 
-                else
-                    emptyWarning += items[i].info.Name + " !\n";
+                    if (((TextBox)items[i].box).Text.Length > 0)
+                        obj.GetType().GetProperty(items[i].info.Name).SetValue(obj, Convert.ChangeType(((TextBox)items[i].box).Text, type[i].PropertyType));
 
+                    else
+                        emptyWarning += items[i].info.Name + " !\n";
+                }
+                else if (obj2.Name =="CheckBox") 
+                {
+                    obj.GetType().GetProperty(items[i].info.Name).SetValue(obj, Convert.ChangeType(((CheckBox)items[i].box).Checked, type[i].PropertyType));
+
+                }
 
             }
             if (emptyWarning.Length > 0)
@@ -139,7 +178,8 @@ namespace restourantManagerForm.Views.Shared
         }
         private void OperationStart(object obj, int code)
         {
-            if (code == 1)
+            MessageBox.Show("Added");
+           /* if (code == 1)
             {
                 new FirebaseManger.Cloud().Add(obj);
             }
@@ -150,7 +190,7 @@ namespace restourantManagerForm.Views.Shared
             else if (code == 3)
             {
                 new FirebaseManger.Cloud().Delete(obj);
-            }
+            }*/
         }
 
 
