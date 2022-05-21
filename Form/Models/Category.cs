@@ -1,5 +1,6 @@
 ﻿using FireCloud.Business.Interface;
 using Google.Cloud.Firestore;
+using restourantManagerForm.Interfaces;
 using restourantManagerForm.ModelManager;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace restourantManagerForm.Models
 {
     
     [FirestoreData]
-    public class Category: IFirebase
+    public class Category: IFirebase, IImage
     {
 
         string IFirebase.table_names => "Category";
@@ -20,9 +21,14 @@ namespace restourantManagerForm.Models
         public string id { get; set; }
         [FirestoreProperty]
         public string name { get; set; }
+        [FirestoreProperty]
+        public string imageid { get; set; }
+        [FirestoreProperty]
+        public int status { get; set; }
+        [FirestoreProperty]
+        public int diplayRank { get; set; }
 
-
-        public  CategoryManager manager = new CategoryManager();
+        public CategoryManager manager = new CategoryManager();
         public Category()
         {
         }

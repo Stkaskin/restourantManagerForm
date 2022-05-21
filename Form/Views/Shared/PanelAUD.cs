@@ -14,9 +14,12 @@ namespace restourantManagerForm.Views.Shared
 {
     public partial class PanelAUD : Form
     {
-        Type objType;
+        static string STRING = "String";
+        static string BOOLEN= "Boolen";
+        static string IMAGE= "Imagelocation";
+          Type objType;
         string imageProperty;
-        bool Isimage = false;
+      
         int operationCode = -1;
         object obj;
         int startPositionX = 40;
@@ -24,7 +27,7 @@ namespace restourantManagerForm.Views.Shared
         int heightText = 25;
         int widhtTextBox = 120;
         int extraSpaceLabelAndTextbox = 50;
-       
+
         PropertyInfo[] type;
         Button button = new Button();
         List<(PropertyInfo info, object box)> items = new List<(PropertyInfo info, object box)>();
@@ -37,12 +40,12 @@ namespace restourantManagerForm.Views.Shared
         public PanelAUD(object obj, int Operation, string imageProperty)
         {
             this.imageProperty = imageProperty;
-            Isimage = true;
-            if (Isimage) ;
+      
+         
             operationCode = Operation;
             PanelAUDStart();
         }
-      
+
         void PanelAUDStart()
         {
             InitializeComponent();
@@ -69,8 +72,8 @@ namespace restourantManagerForm.Views.Shared
 
         private void AddPanel_Load(object sender, EventArgs e)
         {
-         
-            
+
+
         }
         public void LoadPageAddControlsProperty(object obj)
         {
@@ -84,27 +87,23 @@ namespace restourantManagerForm.Views.Shared
             int maxWidht = 0;
             foreach (var item in type)
             {
-                Label label = new Label();
-                label.Location = new Point(x, y);
-                label.Text = item.Name;
-                label.Height = heightText;
-                label.Width = item.Name.Length * 10;
-                this.Controls.Add(label);
-                y += heightText;
-                if (maxWidht < label.Width)
-                    maxWidht = label.Width;
+                if (item.PropertyType.Name == IMAGE || (item.PropertyType.Name == STRING) || (item.PropertyType.Name == BOOLEN))
+                    addLabel(item,ref x, ref y, ref maxWidht);
             }
             x = startPositionX;
             y = startPositionY;
             foreach (var item in type)
-            { var propName = item.PropertyType.Name;
-                if (propName=="String")
-                addTextBox(item,ref y,ref x,ref maxWidht);
-                else if (propName== "Boolean") 
+            {
+                var propName = item.PropertyType.Name;
+                if (item.Name == IMAGE)
+                    addOpenFileDialogButton(item, ref y, ref x, ref maxWidht);
+                else if (propName == STRING)
+                    addTextBox(item, ref y, ref x, ref maxWidht);
+                else if (propName == BOOLEN)
                 {
                     addCheckBox(item, ref y, ref x, ref maxWidht);
                 }
-         
+
             }
 
             button.Location = new Point((x * 3) / 2, (type.Length + 1) * (heightText + 5));
@@ -113,6 +112,44 @@ namespace restourantManagerForm.Views.Shared
             button.Click += Button_Click;
             this.Controls.Add(button);
         }
+        void addLabel (PropertyInfo item, ref int x,ref int y,ref int maxWidht)
+        {
+            Label label = new Label();
+              label.Location = new Point(x, y);
+              label.Text = item.Name;
+                label.Height = heightText;
+                label.Width = item.Name.Length* 10;
+                this.Controls.Add(label);
+                y += heightText;
+                if (maxWidht<label.Width)
+                    maxWidht = label.Width;
+        }
+        void addOpenFileDialogButton(PropertyInfo item, ref int ex, ref int x, ref int maxWidht)
+        {
+
+            Button box = new Button();
+            box.Text = "Resim Seç";
+            box.Height = heightText;
+            box.Width = widhtTextBox;
+            box.Location = new Point(x + maxWidht + extraSpaceLabelAndTextbox, ex);
+            box.Click += OpenFileDialogOperation;
+            this.Controls.Add(box);
+
+            items.Add((item, box));
+            ex += heightText;
+
+
+        }
+
+        private void OpenFileDialogOperation(object sender, EventArgs e)
+        {
+            OpenFileDialog dosya = new OpenFileDialog();
+            dosya.Filter = "Resim Dosyası |*.jpg |  |*.png | Tüm Dosyalar |*.*";
+            dosya.Title = "File Select";
+            dosya.ShowDialog();
+            obj.GetType().GetProperty("Imagelocation").SetValue(obj, dosya.FileName);
+        }
+
         private void addCheckBox(PropertyInfo item, ref int ex, ref int x, ref int maxWidht)
         {
             CheckBox box = new CheckBox();
@@ -127,7 +164,7 @@ namespace restourantManagerForm.Views.Shared
             items.Add((item, box));
             ex += heightText;
         }
-        private void addTextBox( PropertyInfo item,ref int ex,ref int x,ref int maxWidht)
+        private void addTextBox(PropertyInfo item, ref int ex, ref int x, ref int maxWidht)
         {
             TextBox box = new TextBox();
             //  box.Text = item.Name;
@@ -138,7 +175,7 @@ namespace restourantManagerForm.Views.Shared
                 box.Enabled = false;
                 a = a == null ? "Otomatik" : a;
             }
-           
+
             box.Text = a != null ? a.ToString() : "";
             box.Height = heightText;
             box.Width = widhtTextBox;
@@ -150,10 +187,17 @@ namespace restourantManagerForm.Views.Shared
         private void Button_Click(object sender, EventArgs e)
         {
             string emptyWarning = "";
+
             for (int i = 0; i < items.Count; i++)
-            { 
+            {
                 var obj2 = items[i].box.GetType();
-                if (obj2.Name == "TextBox")
+                if (obj2.Name == "Imagelocation")
+                {
+                    string location = obj.GetType().GetProperty("Imagelocation").GetValue(obj).ToString();
+                    if (location == null && location.Length > 0)
+                        emptyWarning += "Dosya Seçin\n";
+                }
+                else if (obj2.Name == "TextBox")
                 {
 
                     if (((TextBox)items[i].box).Text.Length > 0)
@@ -162,7 +206,7 @@ namespace restourantManagerForm.Views.Shared
                     else
                         emptyWarning += items[i].info.Name + " !\n";
                 }
-                else if (obj2.Name =="CheckBox") 
+                else if (obj2.Name == "CheckBox")
                 {
                     obj.GetType().GetProperty(items[i].info.Name).SetValue(obj, Convert.ChangeType(((CheckBox)items[i].box).Checked, type[i].PropertyType));
 
@@ -179,18 +223,18 @@ namespace restourantManagerForm.Views.Shared
         private void OperationStart(object obj, int code)
         {
             MessageBox.Show("Added");
-           /* if (code == 1)
-            {
-                new FirebaseManger.Cloud().Add(obj);
-            }
-            else if (code == 2)
-            {
-                new FirebaseManger.Cloud().Update(obj);
-            }
-            else if (code == 3)
-            {
-                new FirebaseManger.Cloud().Delete(obj);
-            }*/
+            /* if (code == 1)
+             {
+                 new FirebaseManger.Cloud().Add(obj);
+             }
+             else if (code == 2)
+             {
+                 new FirebaseManger.Cloud().Update(obj);
+             }
+             else if (code == 3)
+             {
+                 new FirebaseManger.Cloud().Delete(obj);
+             }*/
         }
 
 

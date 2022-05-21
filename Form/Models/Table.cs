@@ -14,7 +14,12 @@ namespace restourantManagerForm.Models
         public string id { get; set; }
         [FirestoreProperty]
         public string name { get; set; }
-    
+        [FirestoreProperty]
+        public int diplayRank { get; set; }
+
+        [FirestoreProperty]
+        public int status { get; set; }
+
         public TableManager manager = new TableManager();
         public Table() { }
         public Table(string id,string name)

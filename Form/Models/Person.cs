@@ -22,7 +22,12 @@ namespace restourantManagerForm.Models
         [FirestoreProperty]
         public string type{ get; set; }
         [FirestoreProperty]
-        public bool active { get; set; }
+        public int status { get; set; }
+        [FirestoreProperty]
+        public string  imageid { get; set; }
+        [FirestoreProperty]
+        public int diplayRank { get; set; }
+
         public PersonManager manager = new PersonManager();
 
         public Person(string id,string name)

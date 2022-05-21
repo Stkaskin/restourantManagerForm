@@ -1,11 +1,15 @@
 ﻿using FireCloud.Business.Operation;
 using FireCloud.My_Data;
 using restourantManagerForm.DataManager;
+using restourantManagerForm.FormDatas;
+using restourantManagerForm.Manager;
 using restourantManagerForm.ModelManager;
 using restourantManagerForm.Models;
+using restourantManagerForm.Models.PersonPartial;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace restourantManagerForm.Views.Shared
@@ -28,13 +32,11 @@ namespace restourantManagerForm.Views.Shared
         private void PanelDisplay_Load(object sender, EventArgs e)
         {
             loadingItems();
-            dataGridView.DataSource = new Firebase_Save().Selection(new Person());
-
-
         }
         #region This Form Operations
+  
         private List<object> getListModels() =>
-            new List<object> { new Person(), new Table(), new Product(), new Order(), new Category() };
+         Perdurable.classList;
 
         private List<(object obj, string dislay, int value)> getComboBoxSource()
         {
@@ -60,10 +62,10 @@ namespace restourantManagerForm.Views.Shared
             {
                 var t = item.GetType().FullName;
                 var t1 = item.GetType().Name;
-                if (t1.ToString()== comboBox.SelectedItem.ToString())
+                if (t1.ToString() == comboBox.SelectedItem.ToString())
                 {
                     new PanelAUD(item, 1).ShowDialog();
-                    
+
                     break;
                 }
             }
@@ -83,7 +85,7 @@ namespace restourantManagerForm.Views.Shared
             datagridviewAdd(ref dataGridView);
             comboboxAdd(ref comboBox);
             crudButtons();
-            addButton.Click +=AddClick;
+            addButton.Click += AddClick;
 
         }
         private void crudButtons()
@@ -113,18 +115,32 @@ namespace restourantManagerForm.Views.Shared
             gridView = new DataGridView();
             gridView.Size = new Size(500, 500);
             gridView.Location = new Point(10, 90);
+         
             this.Controls.Add(gridView);
         }
+        object c = new List<object>();
+        
+
+     
+
         private void comboboxAdd(ref ComboBox box)
         {
             var list = getComboBoxSource();
             box = new ComboBox();
             box.Size = new Size(200, 50);
             box.Location = new Point(10, 10);
+            box.SelectedIndexChanged += comboBoxSelectedItemChanged;
             foreach (var item in list)
                 box.Items.Add(item.dislay);
             box.SelectedIndex = 0;
+           
             this.Controls.Add(box);
+        }
+
+        private void comboBoxSelectedItemChanged(object sender, EventArgs e)
+        {var f43= FirebaseOperationManager.getList(comboBox.SelectedItem.ToString());
+
+            dataGridView.DataSource = f43;
         }
         #endregion
     }

@@ -41,5 +41,6 @@ namespace restourantManagerForm.ModelManager
             CategoriesList.Add(new Category("4", "İçicek"));
             return CategoriesList;
         }
+      
     }
 }

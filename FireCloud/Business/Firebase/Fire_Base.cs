@@ -14,7 +14,6 @@ namespace FireCloud.Business.Firebase
 
             Firebase_Settings.Firebase settings = new Firebase_Settings.Firebase();
             string path = settings.File_Location;
-       
             
             Environment.SetEnvironmentVariable(settings.EnviromentValue, path);
             return FirestoreDb.CreateAsync(settings.Firebase_Name).Result;

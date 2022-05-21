@@ -22,11 +22,19 @@ namespace restourantManagerForm.Models
         [FirestoreProperty]
         public string cheffId { get; set; }
         [FirestoreProperty]
-        public string productId { get; set; }
+        public string note{ get; set; }
+        [FirestoreProperty]
+        public int status{ get; set; }
+        [FirestoreProperty]
+        public DateTime datetime { get; set; }
+        [FirestoreProperty]
+        public int total { get; set; }
+
+
         [FirestoreProperty]
         public string tableId { get; set; }
-   
-        public Product product { get; set; }
+
+
         public Person waiter{ get; set; }
         public Person cheff{ get; set; }
         public Table table { get; set; }
@@ -40,9 +48,8 @@ namespace restourantManagerForm.Models
         {
             this.id = id;
             //this.personId = personId;
-            this.productId = productId;
             this.tableId = tableId;
-            this.product = product;
+        //    this.product = product;
            // this.person = person;
             this.table = table;
         }

@@ -1,5 +1,6 @@
 ﻿using FireCloud.Business.Interface;
 using FireCloud.Business.Work;
+using System.Collections.Generic;
 
 namespace FireCloud.Business.Operation
 {
@@ -23,7 +24,8 @@ namespace FireCloud.Business.Operation
         {
              firebase = (IFirebase)class_object;
             return new Firebase_Work().Update(firebase.table_names, firebase.table_Id, firebase);
-        }
+        }   
+  
         public int Update(object class_object,string Change_Id)
         {
             //içeriye id ekliyor 
@@ -32,10 +34,10 @@ namespace FireCloud.Business.Operation
             firebase.table_Id = Change_Id;
             return new Firebase_Work().Update(firebase.table_names, old_id, firebase);
         }
-        public object Selection<T>(T obj)
+        public List<T> Selection<T>(T obj)
         {
-            firebase=(IFirebase) obj;
-            return new Data_Converter().Firebase_Converter<T>(new Firebase_Work().Selection(firebase.table_names, "", ""));
+            firebase = (IFirebase)obj;
+            return (List<T>)new Data_Converter().Firebase_Converter<T>(new Firebase_Work().Selection(firebase.table_names, "", ""));
 
         }
 

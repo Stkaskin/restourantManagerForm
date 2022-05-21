@@ -267,7 +267,10 @@
     <Compile Include="DataManager\Fake.cs" />
     <Compile Include="DataManager\FileDatabaseManager.cs" />
     <Compile Include="DataManager\FirebaseManger.cs" />
+    <Compile Include="FormDatas\Perdurable.cs" />
     <Compile Include="FormManager\FormConnectionManager.cs" />
+    <Compile Include="Interfaces\IImage.cs" />
+    <Compile Include="Manager\FirebaseOperationManager.cs" />
     <Compile Include="Manager\PropertyManagerService.cs" />
     <Compile Include="ModelManager\CategoryManager.cs" />
     <Compile Include="ModelManager\OrderManager.cs" />
@@ -276,10 +279,16 @@
     <Compile Include="ModelManager\ProductManager.cs" />
     <Compile Include="ModelManager\TableManager.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderPartial\OrderDetail.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\PersonPartial\PersonType.cs" />
+    <Compile Include="Models\PersonPartial\SpecialPersonTypeList.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductPartial\Extra.cs" />
+    <Compile Include="Models\ProductPartial\ExtraDetail.cs" />
+    <Compile Include="Models\ProductPartial\SpecialExtraList.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -337,8 +346,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\ProductPartial\" />
-    <Folder Include="Models\Types\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Person\" />
   </ItemGroup>

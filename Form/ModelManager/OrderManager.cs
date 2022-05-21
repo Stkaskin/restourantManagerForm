@@ -1,4 +1,5 @@
-﻿using restourantManagerForm.Manager;
+﻿using restourantManagerForm.FormDatas;
+using restourantManagerForm.Manager;
 using restourantManagerForm.Models;
 using System;
 using System.Collections.Generic;
@@ -62,15 +63,70 @@ namespace restourantManagerForm.ModelManager
 
             //order id personad, masasının adı,category adı,ürünün adı
             var prop = view.GetType().GetProperty("Text");
-            prop.SetValue(view,"");
+            prop.SetValue(view, "");
             foreach (Order order in getOrders())
             {
 
-                if (order.id == id) {
-                   // string  _text=order.person.name + " " + order.table.name + " " + order.product.category.name + " " + order.product.name;
-                //    prop.SetValue(view, _text);
-                } 
+                if (order.id == id)
+                {
+                    // string  _text=order.person.name + " " + order.table.name + " " + order.product.category.name + " " + order.product.name;
+                    //    prop.SetValue(view, _text);
+                }
             }
+        }
+       public class OrderGrid
+        {
+            public string id { get; set; }
+           public string table { get; set; }
+            public string Waiter{ get; set; }
+           public string product{ get; set; }
+           public string category{ get; set; }
+            public string cheff{ get; set; }
+    }
+        public List<OrderGrid> OrderGridView()
+        {
+            if (Perdurable.CategoryList.Count==0)
+            {
+                FirebaseOperationManager.getList("Category");      
+            }
+            if (Perdurable.ProductList.Count == 0)
+            {
+                FirebaseOperationManager.getList("Product");
+            }
+            if (Perdurable.PersonTypeList.Count == 0)
+            {
+                FirebaseOperationManager.getList("PersonType");
+
+            }
+            if (Perdurable.TableList.Count == 0)
+            {
+                FirebaseOperationManager.getList("Table");
+            }
+            if (Perdurable.PersonList.Count == 0)
+            {
+                FirebaseOperationManager.getList("Person");
+            }
+            if (Perdurable.OrderList.Count == 0)
+            {
+                FirebaseOperationManager.getList("Order");
+            }
+      
+            var c = new List<OrderGrid>();
+
+
+               
+            foreach (var item in Perdurable.OrderList)
+            {
+                c.Add(new OrderGrid { 
+                    id = item.id,
+                    category = Perdurable.CategoryList.Where(x=>x.id==Perdurable.ProductList.Where(y=>y.id==item.productId).FirstOrDefault().categoryId).FirstOrDefault().name,
+                    product = Perdurable.ProductList.Where(x => x.id == item.productId).FirstOrDefault().name,
+                    table = Perdurable.TableList.Where(x => x.id == item.tableId).FirstOrDefault().name, 
+                    Waiter = Perdurable.PersonList.Where(x => x.id == item.waiterId).FirstOrDefault().name,
+                    cheff = Perdurable.PersonList.Where(x => x.id == item.cheffId).FirstOrDefault().name,
+                });
+            }
+            return c;
         }
     }
 }
