@@ -56,6 +56,8 @@ namespace restourantManagerForm.DataManager
             PersonsAdd();
             AddCategoryAndProduct();
             AddOrder();
+            AddOrder();
+            AddOrder();
         }
         #region Order Add
         public void AddOrder()
@@ -63,12 +65,12 @@ namespace restourantManagerForm.DataManager
             // = ,
             Random r = new Random();
             r.Next(0, productIds.Count);
-            var order = new Order
+            Order order = new Order
             {
                 waiterId = waiterIds[r.Next(0, waiterIds.Count)],
                 cheffId = cheffIds[r.Next(0, cheffIds.Count)],
                 total = 0,
-                datetime = DateTime.Now,
+                datetime = DateTime.Now.ToString(),
                 status = r.Next(0, 3),
                 note = "myNote " + r.Next(300, 499),
                 tableId = tableIds[r.Next(0, tableIds.Count)]

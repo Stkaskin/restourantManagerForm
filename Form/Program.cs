@@ -18,7 +18,7 @@ namespace restourantManagerForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new Fake().addAll();
+     //       new Fake().addAll();
            Application.Run(new PanelDisplay());
         }
     }

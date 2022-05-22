@@ -26,7 +26,7 @@ namespace restourantManagerForm.Models
         [FirestoreProperty]
         public int status{ get; set; }
         [FirestoreProperty]
-        public DateTime datetime { get; set; }
+        public string datetime { get; set; }
         [FirestoreProperty]
         public int total { get; set; }
 
