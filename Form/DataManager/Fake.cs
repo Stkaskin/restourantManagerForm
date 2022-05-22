@@ -15,31 +15,40 @@ namespace restourantManagerForm.DataManager
     public class Fake
     {
         FirebaseManger.Cloud manager = new FirebaseManger.Cloud();
+        #region  Fake  Lists For Data
+        #region Table List
         List<string> tableNames = new List<string> { "table1", "table2", "table3", "table4", "table5", "table6", };
+        #endregion
+        #region Person List
         List<string> waiterNames = new List<string> { "Sıtkı", "Oğuz", "Utku" };
         List<string> cheffNames = new List<string> { "Cheff1", "Cheff2", "Cheff3" };
+     
         List<string> admin = new List<string> { "admin" };
+        #endregion
+        #region Categories List
         List<string> categories = new List<string> { "Başlangıç", "Ana", "Tatlı", "İçicek" };
         List<string> category1 = new List<string> { "Domates Çorbası", "Ezo Gelin Çorbası", "Mercimek Çorbası", };
         List<string> category2 = new List<string> { "Kuru Fasulye", "Tavuk Döner", "Et Döner" };
         List<string> category3 = new List<string> { "Puding", "Şekerpare", "Halka" };
         List<string> category4 = new List<string> { "Kola", "Ayran", "Su" };
+        #endregion
+        #region Product and Extra List
         List<string> extraList1 = new List<string> { "Tuz", "Pul biber", "Soğan", "Nane" };
         List<string> extraList2 = new List<string> { "Ketcap", "Mayonez", "Special Sauce" };
-       
         List<string> extraList3 = new List<string> { "Çeviz", "Antep Fıstığı" };
         List<string> extraList4 = new List<string> { "Açık", "Kapalı", "Köpüklü" };
-        List<string> SpecialPersonTypeListNames = new List<string> { "Admin", "Waiter", "Cheff" };
-
+        #endregion
+        #region tempData
         List<string> tableIds = new List<string>();
         List<string> productIds = new List<string>();
         List<string> waiterIds = new List<string>();
         List<string> cheffIds = new List<string>();
-        List<List<string>> extraListwithIds = new List<List<string>>();
+        List<string> specialExtraNamesIds = new List<string>();
         string waiterTypeId = "";
         string cheffTypeId = "";
         string adminTypeId = "";
-
+        #endregion
+        #endregion
         public void addAll()
         {
             AddTables();
@@ -48,6 +57,7 @@ namespace restourantManagerForm.DataManager
             AddCategoryAndProduct();
             AddOrder();
         }
+        #region Order Add
         public void AddOrder()
         {
             // = ,
@@ -81,6 +91,8 @@ namespace restourantManagerForm.DataManager
             manager.Update(order);
 
         }
+        #endregion
+        #region Person Add
         public void PersonTypesAdd()
         {
             string getid = manager.Add(new SpecialPersonTypeList { name = "admin", persontypeid = "" });
@@ -96,37 +108,43 @@ namespace restourantManagerForm.DataManager
         }
         public void PersonsAdd()
         {
+            int rank_ = 0;
             foreach (var item in admin)
             {
-                manager.Add(new Person { name = item, status = 1, type = adminTypeId });
+                manager.Add(new Person { name = item, status = 1,diplayRank=rank_++, type = adminTypeId });
             }
+        
             foreach (var item in cheffNames)
             {
-                cheffIds.Add(manager.Add(new Person { name = item, status= new Random().Next(0,3), type = cheffTypeId }));
+                cheffIds.Add(manager.Add(new Person { name = item, diplayRank = rank_++, status= new Random().Next(0,3), type = cheffTypeId }));
             }
+          
             foreach (var item in waiterNames)
             {
-                waiterIds.Add(manager.Add(new Person { name = item, status = new Random().Next(0, 3), type = waiterTypeId }));
+                waiterIds.Add(manager.Add(new Person { name = item, diplayRank = rank_++, status = new Random().Next(0, 3), type = waiterTypeId }));
             }
         }
+        #endregion
+        #region Product And Category Add
         public void AddCategoryAndProduct()
         {
             extrasAdd();
             List<List<string>> listCategories = new List<List<string>> { category1, category2, category3, category4 };
       
             int i = 0;
-   
+
             foreach (var item in categories)
             {
-                ProductAdd(manager.Add(new Category { name = item ,status=1,diplayRank=i,imageid=""}), listCategories[i]);
+                ProductAdd(manager.Add(new Category { name = item ,status=1,diplayRank=i,imageid=""}), listCategories[i], specialExtraNamesIds[i]);
                 i++;
 
             }
         }
-        List<string> specialExtrNamesIds = new List<string> ();
+
         private void extrasAdd()
         {
-            
+            List<List<string>> extraListwithIds = new List<List<string>>();
+
             List<List<string>> extraList = new List<List<string>> { extraList1, extraList2, extraList3, extraList4 };
             foreach (var item in extraList)
             {
@@ -144,38 +162,40 @@ namespace restourantManagerForm.DataManager
             foreach (var item in extralisttypes)
             {
             string id_   = manager.Add(new SpecialExtraList { displayRank = typecode, status =1 ,name=item }) ;
-                specialExtrNamesIds.Add(id_);
+                specialExtraNamesIds.Add(id_);
                 int displayrank_ = 0;
-                foreach (var item_in in extraList[typecode])
+                foreach (var item_in in extraListwithIds[typecode])
                 {
-                    manager.Add(new ExtraDetail {displayRank= displayrank_++,active=true,extraId=item_in,specialExtraListId=id_,imageId=""});
+                    manager.Add(new ExtraDetail {displayRank= displayrank_++,status=1,extraId=item_in,specialExtraListId=id_,imageId=""});
                 }
                 typecode++;
             }
 
         }
-        private void ProductAdd(string categoryid, List<string> list)
+        private void ProductAdd(string categoryid, List<string> list,string specialextranameid)
         {
            
             int i = 0;
             foreach (var item in list)
             {
-                productIds.Add(manager.Add(new Product { extraSpeacialListId = specialExtrNamesIds[i], diplayRank = i, imageid = "", status = new Random().Next(0, 2), description = "", categoryId = categoryid, name = item }));
+                productIds.Add(manager.Add(new Product { extraSpeacialListId = specialextranameid, diplayRank = i, imageid = "", status = new Random().Next(0, 2), description = "", categoryId = categoryid, name = item }));
                 i++;
             }
 
         }
+        #endregion
+        #region Table Add
         public void AddTables()
         {
-
+            int display_ = 0;
             foreach (var item in tableNames)
             {
-                tableIds.Add(manager.Add(new Table { name = item }));
+                tableIds.Add(manager.Add(new Table {status=1,diplayRank=display_++, name = item }));
 
             }
 
         }
-
+        #endregion
 
 
     }

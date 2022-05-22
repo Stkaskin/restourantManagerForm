@@ -117,14 +117,14 @@ namespace restourantManagerForm.ModelManager
                
             foreach (var item in Perdurable.OrderList)
             {
-                c.Add(new OrderGrid { 
+           /*     c.Add(new OrderGrid { 
                     id = item.id,
                     category = Perdurable.CategoryList.Where(x=>x.id==Perdurable.ProductList.Where(y=>y.id==item.productId).FirstOrDefault().categoryId).FirstOrDefault().name,
                     product = Perdurable.ProductList.Where(x => x.id == item.productId).FirstOrDefault().name,
                     table = Perdurable.TableList.Where(x => x.id == item.tableId).FirstOrDefault().name, 
                     Waiter = Perdurable.PersonList.Where(x => x.id == item.waiterId).FirstOrDefault().name,
                     cheff = Perdurable.PersonList.Where(x => x.id == item.cheffId).FirstOrDefault().name,
-                });
+                });*/
             }
             return c;
         }

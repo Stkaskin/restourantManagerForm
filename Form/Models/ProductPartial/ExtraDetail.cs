@@ -20,7 +20,10 @@ namespace restourantManagerForm.Models.ProductPartial
         [FirestoreProperty]
         public string specialExtraListId { get; set; }
         [FirestoreProperty]
-        public bool active { get; set; }
+        //özel durumlar için örnek indirimli durumlarda ürünün indirim kategorisinde görünmesinş 
+        // sağlamak amaclı status eklendi 
+        //normal durumu active > 0 pasif 1 aktif
+        public int status { get; set; }
         [FirestoreProperty]
         public string imageId { get; set; }
         [FirestoreProperty]

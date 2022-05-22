@@ -1,4 +1,5 @@
-﻿using restourantManagerForm.Views.Shared;
+﻿using restourantManagerForm.DataManager;
+using restourantManagerForm.Views.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace restourantManagerForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            new Fake().addAll();
            Application.Run(new PanelDisplay());
         }
     }

@@ -15,6 +15,7 @@ namespace restourantManagerForm.Models.ProductPartial
         string IFirebase.table_Id { get => this.id; set { this.id = value; } }
         [FirestoreDocumentId]
         public string id { get; set; }
+        [FirestoreProperty]
         public string name { get; set; }
         [FirestoreProperty]
         public int type { get; set; }
